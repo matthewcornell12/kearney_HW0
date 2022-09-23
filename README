@@ -1,0 +1,21 @@
+name: James Keareny 
+pennkea: jameskea - 77299315
+what I did: 
+    I created a simple loop while loop such that at each interation it prompts the user for some command to run. Once a comamnd is entered it is parsed to take all the aguments out using strtok. These arguments are then checked and ran using execve in a fork process. If the process running takes longer than a set timer, it is terminated and a message appears before prompting the user again.
+code overview:
+    sig alarms: handle the alarm and control c signals. If there is an alarm while running it kills the child process and prints the catch phrase before returning. Control c simply re-promts the user for more input. 
+
+    main: the main function prompts and reads the input from the user. This input is checked for the control-d signal before being checked for the optional timer input. From here the input is then parsed to get the arguments from it. These arguments are then ran using execve in the child process after the fork. In the parent process there is an alarm set and it is waiting for the child to finish. If the child doesn't finish in time of the alarm it is killed. The alarm is also intially set to 3 seconds. Lastly all the variables are freed and the alarm is reset.
+
+    checkResult: simply takes in a status return value and prints the error
+    message if the value -1 and exit(EXIT_FAILURE) to exit the failed process.
+
+    setTimer: Set timer takes in a copy of the user input and parses it to 
+    find the first character. if the character is a digit is sets the timer 
+    to that value, otherwise it simply returns. After the timer is set it checks further input to see if invalid arguments were given after the 
+    timer set, or if the timer is negative, and if so entirely shuts down the program.
+
+    getArgsFromCommand: this function takes in the arguments from the user and parses it to get all the arguments into a 2d char array. The funciton simply uses strtok and checks for spaces, tabs, and newlines. After the arguments are parsed they are malloced and copied so that they can be returned back to the main function to be used.
+General comments:
+    I thought this was a good assigment. Thats basically it.
+
